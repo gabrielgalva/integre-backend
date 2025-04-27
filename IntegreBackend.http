@@ -1,0 +1,6 @@
+@IntegreBackend_HostAddress = http://localhost:5132
+
+GET {{IntegreBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
