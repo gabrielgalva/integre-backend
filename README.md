@@ -1,6 +1,6 @@
 # IntegreBackend
 
-Esse é o backend que desenvolvi usando **ASP.NET Core**, **Entity Framework Core (EF Core)** e **SQLite**. O objetivo foi criar APIs seguras para registro e autenticação de usuários (tanto estudantes quanto empresas), usando **JWT (JSON Web Token)**, além de preparar a base para gerenciar cursos, projetos e vagas de emprego.
+Esse é o backend que desenvolvi usando **ASP.NET Core**, **Entity Framework Core (EF Core)** e **SQLite**. O objetivo foi criar APIs seguras para registro e autenticação de usuários (tanto estudantes quanto empresas), usando **JWT (JSON Web Token)**.
 
 ## 📚 O que eu fiz até agora?
 
