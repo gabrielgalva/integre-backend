@@ -55,29 +55,19 @@ Esse é o backend que desenvolvi usando **ASP.NET Core**, **Entity Framework Cor
 ## ⚙️ Como rodar o projeto localmente
 
 1. **Clonei o repositório:**
-
-```bash
 git clone https://github.com/seu-usuario/seu-repositorio.git
 cd IntegreBackend
-Restaurei os pacotes:
 
-bash
-Copiar código
+Restaurei os pacotes:
 dotnet restore
 Apliquei as migrations pra criar o banco:
 
-bash
-Copiar código
 dotnet ef database update
 Rodei a aplicação:
 
-bash
-Copiar código
 dotnet run
 A API fica disponível em:
 
-bash
-Copiar código
 http://localhost:5132/swagger
 🔑 Endpoints disponíveis
 POST /api/Auth/register: Registra um novo usuário (empresa ou estudante).
@@ -86,7 +76,7 @@ POST /api/Auth/login: Faz login e retorna um token JWT.
 
 Exemplo pra Registro:
 json
-Copiar código
+
 {
   "fullName": "Gabriel Galvão",
   "role": "Student",
@@ -95,7 +85,7 @@ Copiar código
 }
 Exemplo pra Login:
 json
-Copiar código
+
 {
   "email": "gabriel@example.com",
   "password": "Senha@123"
