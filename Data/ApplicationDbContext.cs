@@ -11,5 +11,6 @@ namespace IntegreBackend.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<JobVacancy> JobVacancies { get; set; }
+        public DbSet<Company> Companies { get; set; }
     }
 }

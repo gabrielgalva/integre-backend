@@ -140,3 +140,4 @@ C:\Users\gabri\OneDrive\Área de Trabalho\back_1.0\IntegreBackend\bin\Debug\net8
 C:\Users\gabri\OneDrive\Área de Trabalho\back_1.0\IntegreBackend\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\gabri\OneDrive\Área de Trabalho\back_1.0\IntegreBackend\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\gabri\OneDrive\Área de Trabalho\back_1.0\IntegreBackend\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\gabri\OneDrive\Área de Trabalho\back_1.0\IntegreBackend\obj\Debug\net8.0\IntegreBackend.sourcelink.json
