@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_\\integre-backend\\IntegreBackend.csproj": {}
+    "C:\\Users\\j.camilo.de.barros\\Documents\\vitest\\Integra\\integre-backend\\IntegreBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_\\integre-backend\\IntegreBackend.csproj": {
+    "C:\\Users\\j.camilo.de.barros\\Documents\\vitest\\Integra\\integre-backend\\IntegreBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_\\integre-backend\\IntegreBackend.csproj",
+        "projectUniqueName": "C:\\Users\\j.camilo.de.barros\\Documents\\vitest\\Integra\\integre-backend\\IntegreBackend.csproj",
         "projectName": "IntegreBackend",
-        "projectPath": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_\\integre-backend\\IntegreBackend.csproj",
-        "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_\\integre-backend\\obj\\",
+        "projectPath": "C:\\Users\\j.camilo.de.barros\\Documents\\vitest\\Integra\\integre-backend\\IntegreBackend.csproj",
+        "packagesPath": "C:\\Users\\j.camilo.de.barros\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\j.camilo.de.barros\\Documents\\vitest\\Integra\\integre-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\j.camilo.de.barros\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -55,6 +57,20 @@
               "target": "Package",
               "version": "[8.0.15, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[8.0.5, )"
@@ -63,7 +79,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.5, )"
+              "version": "[9.0.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -89,7 +105,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

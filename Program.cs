@@ -9,13 +9,13 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configura o banco de dados SQLite
+// Configura o banco de dados
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configura Identity
 builder.Services.AddIdentityCore<ApplicationUser>(options => { })
-    .AddRoles<IdentityRole>() // Se tiver roles
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Configura autenticação JWT
@@ -35,12 +35,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Configura CORS para o frontend
+// Configura CORS para ambiente de desenvolvimento e produção
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("https://seuprojetovercel.app")
+        policy.WithOrigins("http://localhost:3000", "https://seuprojetovercel.app")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -51,7 +51,6 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "IntegreBackend", Version = "v1" });
 
-    // Configuração de segurança
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header usando o esquema Bearer. Exemplo: \"Bearer {seu token}\"",
@@ -81,7 +80,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Pipeline
+// Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -89,9 +88,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowFrontend");
+
+app.UseCors("AllowFrontend"); 
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
