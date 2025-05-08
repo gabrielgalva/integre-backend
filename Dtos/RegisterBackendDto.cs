@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Identity;
-
-namespace IntegreBackend.Models
+namespace IntegreBackend.Dtos
 {
-    public class ApplicationUser : IdentityUser
+    public class RegisterBackendDto
     {
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
@@ -10,8 +8,5 @@ namespace IntegreBackend.Models
         public string Linkedin { get; set; } = string.Empty;
         public string Github { get; set; } = string.Empty;
         public string Matricula { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
-        
-
     }
 }
