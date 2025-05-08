@@ -10,5 +10,7 @@ namespace IntegreBackend.Data
             : base(options)
         {
         }
+
+        public DbSet<Company> Companies { get; set; }
     }
 }
