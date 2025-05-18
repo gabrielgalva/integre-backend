@@ -4,10 +4,7 @@ namespace IntegreBackend.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string FullName { get; set; } = string.Empty;
-        public string Linkedin { get; set; } = string.Empty;
-        public string Github { get; set; } = string.Empty;
-        public string Matricula { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
+        public string? Nome { get; set; }
+        public string? Cargo { get; set; } // Aluno, EmpresaRH, EmpresaChefe, Administrador
     }
 }
