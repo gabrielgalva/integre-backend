@@ -744,3 +744,4 @@ C:\Users\gabri\OneDrive\Área de Trabalho\back_3.0\integre-backend\obj\Debug\net
 C:\Users\gabri\OneDrive\Área de Trabalho\back_3.0\integre-backend\obj\Debug\net8.0\IntegreBackend.pdb
 C:\Users\gabri\OneDrive\Área de Trabalho\back_3.0\integre-backend\obj\Debug\net8.0\IntegreBackend.genruntimeconfig.cache
 C:\Users\gabri\OneDrive\Área de Trabalho\back_3.0\integre-backend\obj\Debug\net8.0\ref\IntegreBackend.dll
+C:\Users\gabri\OneDrive\Área de Trabalho\back_3.0\integre-backend\bin\Debug\net8.0\runtimes\linux-musl-s390x\native\libe_sqlite3.so
