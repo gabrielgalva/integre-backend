@@ -12,5 +12,7 @@ namespace IntegreBackend.Data
         }
 
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Vaga> Vagas { get; set; }
+
     }
 }

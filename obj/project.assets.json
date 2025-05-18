@@ -5409,11 +5409,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_\\integre-backend\\IntegreBackend.csproj",
+      "projectUniqueName": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_3.0\\integre-backend\\IntegreBackend.csproj",
       "projectName": "IntegreBackend",
-      "projectPath": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_\\integre-backend\\IntegreBackend.csproj",
+      "projectPath": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_3.0\\integre-backend\\IntegreBackend.csproj",
       "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_\\integre-backend\\obj\\",
+      "outputPath": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_3.0\\integre-backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"
