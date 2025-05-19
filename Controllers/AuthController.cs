@@ -26,6 +26,35 @@ namespace IntegreBackend.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet("users")]
+        public IActionResult GetAllUsers()
+        {
+            var users = _userManager.Users.Select(u => new
+            {
+                u.Id,
+                u.Email,
+                u.Nome,
+                u.Cargo
+            }).ToList();
+
+            return Ok(users);
+        }
+
+        [HttpGet("users/{id}")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null) return NotFound("Usuário não encontrado.");
+
+            return Ok(new
+            {
+                user.Id,
+                user.Email,
+                user.Nome,
+                user.Cargo
+            });
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
