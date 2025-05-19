@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using IntegreBackend.Models;
 using Microsoft.AspNetCore.Identity;
 
-
 namespace IntegreBackend.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -11,11 +10,20 @@ namespace IntegreBackend.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
+        public DbSet<Company> Companies { get; set; }
+
+        // Novas tabelas para registros de cursos
+            public DbSet<RegisterFrontend> RegisterFrontends { get; set; }
+            public DbSet<RegisterBackend> RegisterBackends { get; set; }
+            public DbSet<RegisterDatabase> RegisterDatabases { get; set; }
+
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            // Ajustar Identity para SQLite
+            // Configuração da Tabela ApplicationUser
             builder.Entity<ApplicationUser>(entity =>
             {
                 entity.Property(u => u.UserName).HasColumnType("TEXT");
@@ -30,6 +38,7 @@ namespace IntegreBackend.Data
                 entity.Property(u => u.Nome).HasColumnType("TEXT");
             });
 
+            // Configuração da Tabela de Roles
             builder.Entity<IdentityRole>(entity =>
             {
                 entity.Property(r => r.Name).HasColumnType("TEXT");
@@ -37,7 +46,7 @@ namespace IntegreBackend.Data
                 entity.Property(r => r.ConcurrencyStamp).HasColumnType("TEXT");
             });
 
-            // Ajuste global para todas as strings
+            // Configuração global para strings como TEXT no SQLite
             foreach (var entity in builder.Model.GetEntityTypes())
             {
                 foreach (var property in entity.GetProperties())

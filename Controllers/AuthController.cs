@@ -17,8 +17,8 @@ namespace IntegreBackend.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<ApplicationUser> userManager, 
-                              SignInManager<ApplicationUser> signInManager, 
+        public AuthController(UserManager<ApplicationUser> userManager,
+                              SignInManager<ApplicationUser> signInManager,
                               IConfiguration configuration)
         {
             _userManager = userManager;
@@ -27,8 +27,11 @@ namespace IntegreBackend.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto dto)
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
+            if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Senha))
+                return BadRequest("Email e senha são obrigatórios.");
+
             var user = new ApplicationUser
             {
                 UserName = dto.Email,
@@ -37,7 +40,46 @@ namespace IntegreBackend.Controllers
                 Cargo = dto.Cargo
             };
 
-            var result = await _userManager.CreateAsync(user, dto.Senha ?? "");
+            var result = await _userManager.CreateAsync(user, dto.Senha);
+
+            if (result.Succeeded)
+                return Ok(new { message = "Usuário registrado com sucesso!" });
+
+            return BadRequest(result.Errors);
+        }
+
+        [HttpPost("register-backend")]
+        public async Task<IActionResult> RegisterBackend([FromBody] RegisterBackend dto)
+        {
+            return await RegisterUser(dto.Email, dto.Password, dto.NomeCompleto, "backend");
+        }
+
+        [HttpPost("register-frontend")]
+        public async Task<IActionResult> RegisterFrontend([FromBody] RegisterFrontend dto)
+        {
+            return await RegisterUser(dto.Email, dto.Password, dto.NomeCompleto, "frontend");
+        }
+
+        [HttpPost("register-database")]
+        public async Task<IActionResult> RegisterDatabase([FromBody] RegisterDatabase dto)
+        {
+            return await RegisterUser(dto.Email, dto.Password, dto.NomeCompleto, "database");
+        }
+
+        private async Task<IActionResult> RegisterUser(string email, string password, string nome, string cargo)
+        {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                return BadRequest("Email e senha são obrigatórios.");
+
+            var user = new ApplicationUser
+            {
+                UserName = email,
+                Email = email,
+                Nome = nome,
+                Cargo = cargo
+            };
+
+            var result = await _userManager.CreateAsync(user, password);
 
             if (result.Succeeded)
                 return Ok(new { message = "Usuário registrado com sucesso!" });
@@ -46,13 +88,16 @@ namespace IntegreBackend.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto dto)
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            var user = await _userManager.FindByEmailAsync(dto.Email);
-            if (user == null) return Unauthorized();
+            if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Senha))
+                return BadRequest("Email e senha são obrigatórios.");
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Senha ?? "", false);
-            if (!result.Succeeded) return Unauthorized();
+            var user = await _userManager.FindByEmailAsync(dto.Email);
+            if (user == null) return Unauthorized("Usuário não encontrado.");
+
+            var isValidPassword = await _userManager.CheckPasswordAsync(user, dto.Senha);
+            if (!isValidPassword) return Unauthorized("Senha incorreta.");
 
             var token = GenerateJwtToken(user);
 
@@ -65,6 +110,9 @@ namespace IntegreBackend.Controllers
                     "aluno" => "/aluno",
                     "empresarh" => "/empresa/rh",
                     "empresachefe" => "/empresa/chefe",
+                    "backend" => "/backend",
+                    "frontend" => "/frontend",
+                    "database" => "/database",
                     _ => "/"
                 }
             });
@@ -80,15 +128,15 @@ namespace IntegreBackend.Controllers
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key missing")));
+                _configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key is missing in configuration.")));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                _configuration["Jwt:Issuer"],
-                _configuration["Jwt:Audience"],
-                claims,
-                expires: DateTime.Now.AddHours(2),
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(2),
                 signingCredentials: creds
             );
 
