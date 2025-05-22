@@ -11,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configura o banco de dados SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 // Configura Identity
 builder.Services.AddIdentityCore<ApplicationUser>(options => { })

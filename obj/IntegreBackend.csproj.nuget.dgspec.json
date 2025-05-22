@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_3.0\\integre-backend\\IntegreBackend.csproj": {}
+    "C:\\Users\\j.camilo.de.barros\\Documents\\vitest\\integre-backend-3\\IntegreBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_3.0\\integre-backend\\IntegreBackend.csproj": {
+    "C:\\Users\\j.camilo.de.barros\\Documents\\vitest\\integre-backend-3\\IntegreBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_3.0\\integre-backend\\IntegreBackend.csproj",
+        "projectUniqueName": "C:\\Users\\j.camilo.de.barros\\Documents\\vitest\\integre-backend-3\\IntegreBackend.csproj",
         "projectName": "IntegreBackend",
-        "projectPath": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_3.0\\integre-backend\\IntegreBackend.csproj",
-        "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\back_3.0\\integre-backend\\obj\\",
+        "projectPath": "C:\\Users\\j.camilo.de.barros\\Documents\\vitest\\integre-backend-3\\IntegreBackend.csproj",
+        "packagesPath": "C:\\Users\\j.camilo.de.barros\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\j.camilo.de.barros\\Documents\\vitest\\integre-backend-3\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\j.camilo.de.barros\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -67,7 +69,7 @@
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[9.0.4, )"
+              "version": "[9.0.5, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
@@ -103,7 +105,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

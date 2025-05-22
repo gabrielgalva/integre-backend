@@ -13,7 +13,7 @@
           "Microsoft.AspNetCore.OpenApi": "8.0.15",
           "Microsoft.EntityFrameworkCore": "9.0.5",
           "Microsoft.EntityFrameworkCore.Design": "9.0.5",
-          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.5",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.5",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.5",
           "Swashbuckle.AspNetCore": "6.6.2"
@@ -576,20 +576,20 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.SqlServer/9.0.4": {
+      "Microsoft.EntityFrameworkCore.SqlServer/9.0.5": {
         "dependencies": {
           "Microsoft.Data.SqlClient": "5.1.6",
           "Microsoft.EntityFrameworkCore.Relational": "9.0.5",
           "Microsoft.Extensions.Caching.Memory": "9.0.5",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.5",
           "Microsoft.Extensions.Logging": "9.0.5",
-          "System.Formats.Asn1": "9.0.4",
+          "System.Formats.Asn1": "9.0.5",
           "System.Text.Json": "9.0.5"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {
-            "assemblyVersion": "9.0.4.0",
-            "fileVersion": "9.0.425.16310"
+            "assemblyVersion": "9.0.5.0",
+            "fileVersion": "9.0.525.21604"
           }
         }
       },
@@ -1177,11 +1177,11 @@
           }
         }
       },
-      "System.Formats.Asn1/9.0.4": {
+      "System.Formats.Asn1/9.0.5": {
         "runtime": {
           "lib/net8.0/System.Formats.Asn1.dll": {
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.425.16305"
+            "fileVersion": "9.0.525.21509"
           }
         }
       },
@@ -1247,7 +1247,7 @@
       "System.Security.AccessControl/6.0.0": {},
       "System.Security.Cryptography.Cng/5.0.0": {
         "dependencies": {
-          "System.Formats.Asn1": "9.0.4"
+          "System.Formats.Asn1": "9.0.5"
         }
       },
       "System.Security.Cryptography.ProtectedData/6.0.0": {
@@ -1530,12 +1530,12 @@
       "path": "microsoft.entityframeworkcore.sqlite.core/9.0.5",
       "hashPath": "microsoft.entityframeworkcore.sqlite.core.9.0.5.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.SqlServer/9.0.4": {
+    "Microsoft.EntityFrameworkCore.SqlServer/9.0.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-UCo6rRUIx2Rhl6xVkMPf1yL/97jcYkwrryOKB5e68YCZ7NdQyk+7wfXJzEDvkFcjTw45H5sy4/1vW6vXCs/Kag==",
-      "path": "microsoft.entityframeworkcore.sqlserver/9.0.4",
-      "hashPath": "microsoft.entityframeworkcore.sqlserver.9.0.4.nupkg.sha512"
+      "sha512": "sha512-Y4194uyqwMivN2ioKd7GYBFVeeG2kZFFC1ZCmOTvXy3G6Wd05ZVyUyR/3mB+SHCequMPt/DI4f58WMmVaOS6eg==",
+      "path": "microsoft.entityframeworkcore.sqlserver/9.0.5",
+      "hashPath": "microsoft.entityframeworkcore.sqlserver.9.0.5.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Tools/9.0.5": {
       "type": "package",
@@ -1859,12 +1859,12 @@
       "path": "system.drawing.common/6.0.0",
       "hashPath": "system.drawing.common.6.0.0.nupkg.sha512"
     },
-    "System.Formats.Asn1/9.0.4": {
+    "System.Formats.Asn1/9.0.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WklXbMuiSM9X7UyM6t9UzNnMGGO9RV3OTtLjR++mvR4fcrMnuPPH3ui+BKVe2RhmDC3Z7ytWJCl+j8KOqKsVzw==",
-      "path": "system.formats.asn1/9.0.4",
-      "hashPath": "system.formats.asn1.9.0.4.nupkg.sha512"
+      "sha512": "sha512-GpMHKhuwUgnp1jKiZQ1slyAQnLp4HG2MgzCJ4u4oZEfi6aBzE3HOx01JFStaiC8dtJqsv0WlrGAWVixv8TEN1w==",
+      "path": "system.formats.asn1/9.0.5",
+      "hashPath": "system.formats.asn1.9.0.5.nupkg.sha512"
     },
     "System.IdentityModel.Tokens.Jwt/7.1.2": {
       "type": "package",

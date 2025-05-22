@@ -135,13 +135,13 @@ namespace IntegreBackend.Controllers
                 token,
                 redirectTo = user.Cargo?.ToLower() switch
                 {
-                    "administrador" => "/admin",
-                    "aluno" => "/aluno",
-                    "empresarh" => "/empresa/rh",
-                    "empresachefe" => "/empresa/chefe",
-                    "backend" => "/backend",
-                    "frontend" => "/frontend",
-                    "database" => "/database",
+                    "administrador" => "/Admin",
+                    "aluno" => "/Aluno",
+                    "rh" => "/Company",
+                    "chefe" => "/Chefe",
+                    "backend" => "/Backend",
+                    "frontend" => "/Frontend",
+                    "database" => "/Database",
                     _ => "/"
                 }
             });
