@@ -9,18 +9,17 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ✅ Conexão direta com SQL Server Express
+// ✅ Banco de dados SQLite (ótimo para ambiente local e Render)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer("Server=GABRIEL\\SQLEXPRESS;Database=integrebanco;Trusted_Connection=True;Encrypt=False;"));
+    options.UseSqlite("Data Source=IntegreDb.db"));
 
-
-// Configura Identity
+// Identity
 builder.Services.AddIdentityCore<ApplicationUser>(options => { })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager<SignInManager<ApplicationUser>>();
 
-// Configura autenticação JWT
+// Autenticação JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -48,7 +47,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Swagger com JWT
+// Swagger + JWT
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "IntegreBackend", Version = "v1" });
@@ -80,12 +79,12 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// 🟢 Garante criação automática do banco de dados e admin
+// ✅ Criação automática do banco e admin
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
-    context.Database.EnsureCreated(); // Cria o banco e as tabelas se não existirem!
+    context.Database.EnsureCreated(); // Cria o banco se não existir
 
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
     var adminEmail = "admin123@gmail.com";
@@ -103,7 +102,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Pipeline
+// Pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -115,5 +114,4 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
