@@ -9,7 +9,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ✅ Banco de dados SQLite (ótimo para ambiente local e Render)
+// Banco de dados SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=IntegreDb.db"));
 
@@ -19,7 +19,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => { })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager<SignInManager<ApplicationUser>>();
 
-// Autenticação JWT
+// JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -79,12 +79,12 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// ✅ Criação automática do banco e admin
+// Criação automática do banco e admin
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
-    context.Database.EnsureCreated(); // Cria o banco se não existir
+    context.Database.EnsureCreated();
 
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
     var adminEmail = "admin123@gmail.com";
@@ -102,21 +102,17 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Pipeline HTTP
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Swagger sempre habilitado
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+// Pipeline
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Rota básica de teste
+app.MapGet("/", () => "API Integre rodando com sucesso 🚀");
+
 app.MapControllers();
-
-// ✅ PORTA para Render (ajuste essencial)
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-app.Urls.Add($"http://0.0.0.0:{port}");
-
 app.Run();
