@@ -6,6 +6,9 @@ using System.Security.Claims;
 using System.Text;
 using IntegreBackend.Models;
 using IntegreBackend.Dtos;
+using IntegreBackend.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace IntegreBackend.Controllers
 {
@@ -16,14 +19,18 @@ namespace IntegreBackend.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly ApplicationDbContext _context;
 
-        public AuthController(UserManager<ApplicationUser> userManager,
-                              SignInManager<ApplicationUser> signInManager,
-                              IConfiguration configuration)
+        public AuthController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IConfiguration configuration,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _context = context;
         }
 
         [HttpGet("users")]
@@ -95,6 +102,29 @@ namespace IntegreBackend.Controllers
             return await RegisterUser(dto.Email, dto.Password, dto.NomeCompleto, "database");
         }
 
+        [HttpPost("register-company")]
+        public async Task<IActionResult> RegisterCompany([FromBody] RegisterCompanyDto dto)
+        {
+            if (await _context.Companies.AnyAsync(c => c.Email == dto.Email))
+                return BadRequest("Empresa já cadastrada com este e-mail.");
+
+            var company = new Company
+            {
+                Email = dto.Email,
+                NomeEmpresa = dto.NomeEmpresa,
+                NomeResponsavel = dto.NomeResponsavel,
+                CargoResponsavel = dto.CargoResponsavel,
+                CNPJ = dto.CNPJ,
+                Endereco = dto.Endereco,
+                SenhaHash = ComputeSha256Hash(dto.Senha ?? "")
+            };
+
+            _context.Companies.Add(company);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Empresa registrada com sucesso!" });
+        }
+
         private async Task<IActionResult> RegisterUser(string email, string password, string nome, string cargo)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
@@ -122,37 +152,57 @@ namespace IntegreBackend.Controllers
             if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Senha))
                 return BadRequest("Email e senha são obrigatórios.");
 
+            // Tenta autenticar como usuário
             var user = await _userManager.FindByEmailAsync(dto.Email);
-            if (user == null) return Unauthorized("Usuário não encontrado.");
+            if (user != null)
+            {
+                var isValidPassword = await _userManager.CheckPasswordAsync(user, dto.Senha);
+                if (!isValidPassword) return Unauthorized("Senha incorreta.");
 
-            var isValidPassword = await _userManager.CheckPasswordAsync(user, dto.Senha);
-            if (!isValidPassword) return Unauthorized("Senha incorreta.");
+                var token = GenerateJwtToken(user.Email ?? "", user.Cargo ?? "", user.Id);
 
-            var token = GenerateJwtToken(user);
+                return Ok(new
+                {
+                    token,
+                    redirectTo = user.Cargo?.ToLower() switch
+                    {
+                        "administrador" => "/Admin",
+                        "aluno" => "/Aluno",
+                        "rh" => "/Company",
+                        "chefe" => "/Chefe",
+                        "backend" => "/Backend",
+                        "frontend" => "/Frontend",
+                        "database" => "/Database",
+                        _ => "/"
+                    }
+                });
+            }
+
+            // Tenta autenticar como empresa
+            var company = await _context.Companies.FirstOrDefaultAsync(c => c.Email == dto.Email);
+            if (company == null)
+                return Unauthorized("Usuário ou empresa não encontrado.");
+
+            var senhaHash = ComputeSha256Hash(dto.Senha);
+            if (company.SenhaHash != senhaHash)
+                return Unauthorized("Senha incorreta.");
+
+            var tokenCompany = GenerateJwtToken(company.Email ?? "", company.CargoResponsavel ?? "empresa", company.Id.ToString());
 
             return Ok(new
             {
-                token,
-                redirectTo = user.Cargo?.ToLower() switch
-                {
-                    "administrador" => "/Admin",
-                    "aluno" => "/Aluno",
-                    "rh" => "/Company",
-                    "chefe" => "/Chefe",
-                    "backend" => "/Backend",
-                    "frontend" => "/Frontend",
-                    "database" => "/Database",
-                    _ => "/"
-                }
+                token = tokenCompany,
+                redirectTo = company.CargoResponsavel?.ToLower() == "chefe" ? "/Chefe" : "/Company"
             });
         }
 
-        private string GenerateJwtToken(ApplicationUser user)
+        private string GenerateJwtToken(string email, string cargo, string id)
         {
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email ?? ""),
-                new Claim("Cargo", user.Cargo ?? ""),
+                new Claim(JwtRegisteredClaimNames.Sub, email),
+                new Claim("Cargo", cargo),
+                new Claim("UserId", id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -170,6 +220,13 @@ namespace IntegreBackend.Controllers
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private static string ComputeSha256Hash(string rawData)
+        {
+            using var sha256 = SHA256.Create();
+            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+            return Convert.ToBase64String(bytes);
         }
     }
 }

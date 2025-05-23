@@ -9,9 +9,9 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configura o banco de dados SQLite
+// ✅ Conexão direta com SQL Server Express
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer("Server=GABRIEL\\SQLEXPRESS;Database=integrebanco;Trusted_Connection=True;Encrypt=False;"));
 
 
 // Configura Identity
