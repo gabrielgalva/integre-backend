@@ -41,7 +41,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000", "https://seuprojetovercel.app")
+        policy.WithOrigins("http://localhost:3000", "https://integre-nu.vercel.app")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
