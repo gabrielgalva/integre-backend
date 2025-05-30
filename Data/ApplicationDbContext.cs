@@ -21,10 +21,10 @@ namespace IntegreBackend.Data
         {
             base.OnModelCreating(builder);
 
-            // Não force o tipo de coluna para SQL Server, use o padrão (nvarchar)
-            // Se quiser customizar, use HasMaxLength para strings
-            // Exemplo:
-            // builder.Entity<Company>().Property(c => c.Email).HasMaxLength(256);
+            // Mapeamento explícito das tabelas
+            builder.Entity<RegisterFrontend>().ToTable("RegisterFrontend");
+            builder.Entity<RegisterBackend>().ToTable("RegisterBackend");
+            builder.Entity<RegisterDatabase>().ToTable("RegisterDatabase");
         }
     }
 }

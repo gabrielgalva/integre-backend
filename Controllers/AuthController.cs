@@ -152,7 +152,6 @@ namespace IntegreBackend.Controllers
             if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Senha))
                 return BadRequest("Email e senha são obrigatórios.");
 
-            // Tenta autenticar como usuário
             var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user != null)
             {
@@ -178,7 +177,6 @@ namespace IntegreBackend.Controllers
                 });
             }
 
-            // Tenta autenticar como empresa
             var company = await _context.Companies.FirstOrDefaultAsync(c => c.Email == dto.Email);
             if (company == null)
                 return Unauthorized("Usuário ou empresa não encontrado.");
@@ -227,6 +225,27 @@ namespace IntegreBackend.Controllers
             using var sha256 = SHA256.Create();
             var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(rawData));
             return Convert.ToBase64String(bytes);
+        }
+
+        [HttpGet("register-backend")]
+        public async Task<IActionResult> GetAllBackends()
+        {
+            var list = await _context.RegisterBackends.ToListAsync();
+            return Ok(list);
+        }
+
+        [HttpGet("register-frontend")]
+        public async Task<IActionResult> GetAllFrontends()
+        {
+            var list = await _context.RegisterFrontends.ToListAsync();
+            return Ok(list);
+        }
+
+        [HttpGet("register-database")]
+        public async Task<IActionResult> GetAllDatabases()
+        {
+            var list = await _context.RegisterDatabases.ToListAsync();
+            return Ok(list);
         }
     }
 }
