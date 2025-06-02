@@ -227,25 +227,37 @@ namespace IntegreBackend.Controllers
             return Convert.ToBase64String(bytes);
         }
 
-        [HttpGet("register-backend")]
-        public async Task<IActionResult> GetAllBackends()
+        [HttpGet("users-backend")]
+        public IActionResult GetBackendUsers()
         {
-            var list = await _context.RegisterBackends.ToListAsync();
-            return Ok(list);
+            var users = _userManager.Users
+                .Where(u => u.Cargo == "backend")
+                .Select(u => new { u.Id, u.Email, u.Nome, u.Cargo })
+                .ToList();
+
+            return Ok(users);
         }
 
-        [HttpGet("register-frontend")]
-        public async Task<IActionResult> GetAllFrontends()
+        [HttpGet("users-frontend")]
+        public IActionResult GetFrontendUsers()
         {
-            var list = await _context.RegisterFrontends.ToListAsync();
-            return Ok(list);
+            var users = _userManager.Users
+                .Where(u => u.Cargo == "frontend")
+                .Select(u => new { u.Id, u.Email, u.Nome, u.Cargo })
+                .ToList();
+
+            return Ok(users);
         }
 
-        [HttpGet("register-database")]
-        public async Task<IActionResult> GetAllDatabases()
+        [HttpGet("users-database")]
+        public IActionResult GetDatabaseUsers()
         {
-            var list = await _context.RegisterDatabases.ToListAsync();
-            return Ok(list);
+            var users = _userManager.Users
+                .Where(u => u.Cargo == "database")
+                .Select(u => new { u.Id, u.Email, u.Nome, u.Cargo })
+                .ToList();
+
+            return Ok(users);
         }
     }
 }
