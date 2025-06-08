@@ -79,7 +79,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Criação automática do banco e admin
+// Criação automática do banco e usuário padrão com cargo "instituicao"
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -87,18 +87,18 @@ using (var scope = app.Services.CreateScope())
     context.Database.EnsureCreated();
 
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-    var adminEmail = "admin123@gmail.com";
-    var admin = await userManager.FindByEmailAsync(adminEmail ?? "");
+    var emailInstituicao = "instituicao123@gmail.com";
 
-    if (admin == null)
+    var instituicao = await userManager.FindByEmailAsync(emailInstituicao);
+    if (instituicao == null)
     {
-        var newAdmin = new ApplicationUser
+        var newUser = new ApplicationUser
         {
-            UserName = adminEmail,
-            Email = adminEmail,
-            Cargo = "Administrador"
+            UserName = emailInstituicao,
+            Email = emailInstituicao,
+            Cargo = "instituicao"
         };
-        await userManager.CreateAsync(newAdmin, "Admin123@");
+        await userManager.CreateAsync(newUser, "Instituicao123@");
     }
 }
 
@@ -111,7 +111,6 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Rota básica de teste
 app.MapGet("/", () => "API Integre rodando com sucesso 🚀");
 
 app.MapControllers();

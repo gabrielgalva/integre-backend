@@ -165,7 +165,7 @@ namespace IntegreBackend.Controllers
                     token,
                     redirectTo = user.Cargo?.ToLower() switch
                     {
-                        "administrador" => "/Admin",
+                        "instituicao" => "/Instituicao",
                         "aluno" => "/Aluno",
                         "rh" => "/Company",
                         "chefe" => "/Chefe",
@@ -231,7 +231,7 @@ namespace IntegreBackend.Controllers
         public IActionResult GetBackendUsers()
         {
             var users = _userManager.Users
-                .Where(u => u.Cargo != null && (u.Cargo.ToLower() == "backend" || u.Cargo.ToLower() == "administrador"))
+                .Where(u => u.Cargo == "backend" || u.Cargo == "instituicao")
                 .Select(u => new { u.Id, u.Email, u.Nome, u.Cargo })
                 .ToList();
 
@@ -242,7 +242,7 @@ namespace IntegreBackend.Controllers
         public IActionResult GetFrontendUsers()
         {
             var users = _userManager.Users
-                .Where(u => u.Cargo != null && (u.Cargo.ToLower() == "frontend" || u.Cargo.ToLower() == "administrador"))
+                .Where(u => u.Cargo == "frontend" || u.Cargo == "instituicao")
                 .Select(u => new { u.Id, u.Email, u.Nome, u.Cargo })
                 .ToList();
 
@@ -253,7 +253,7 @@ namespace IntegreBackend.Controllers
         public IActionResult GetDatabaseUsers()
         {
             var users = _userManager.Users
-                .Where(u => u.Cargo != null && (u.Cargo.ToLower() == "database" || u.Cargo.ToLower() == "administrador"))
+                .Where(u => u.Cargo == "database" || u.Cargo == "instituicao")
                 .Select(u => new { u.Id, u.Email, u.Nome, u.Cargo })
                 .ToList();
 
